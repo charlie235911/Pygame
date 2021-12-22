@@ -151,7 +151,7 @@ jnum10=0
 time=0
 pygame.mixer.music.play(-1)
 def ends(score,jnum10,time):
-    if score>=1000:
+    if score>=500:
         wait = True
         while wait:
             clock.tick(FPS)
@@ -162,13 +162,14 @@ def ends(score,jnum10,time):
             screen.blit(backgrond_img, (0,0))
             draw_text(screen, '挑戰成功!!!', 64, WIDTH/2, HEIGHT/4)
             draw_text(screen, f'水母: {jnum10}', 22, WIDTH/2, HEIGHT/2)
+            draw_text(screen, f'分數: {int(score)}', 18, WIDTH/2, HEIGHT*5/8)
             draw_text(screen, f'花費時間: {int(time)}', 18, WIDTH/2, HEIGHT*3/4)
             pygame.display.update()
 def endf(score,jnum10,time):
-    if score<1000:
+    if score<500:
         pygame.mixer.music.load(os.path.join("sound","end.mp3"))
         pygame.mixer.music.set_volume(0.6)
-        pygame.mixer.music.play(-1)
+        pygame.mixer.music.play(1)
         wait = True
         while wait:
             clock.tick(FPS)
@@ -176,9 +177,10 @@ def endf(score,jnum10,time):
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
-            screen.blit(backgrond_img, (0,0))
+            screen.blit(pygame.transform.scale(jellyfish_img,(WIDTH,HEIGHT)), (0,0))
             draw_text(screen, '挑戰失敗...', 64, WIDTH/2, HEIGHT/4)
             draw_text(screen, f'水母: {jnum10}', 22, WIDTH/2, HEIGHT/2)
+            draw_text(screen, f'分數: {int(score)}', 18, WIDTH/2, HEIGHT*5/8)
             draw_text(screen, f'花費時間: {int(time)}', 18, WIDTH/2, HEIGHT*3/4)
             pygame.display.update()
 
@@ -226,7 +228,7 @@ while running:
     screen.fill(BLACK)
     screen.blit(backgrond_img,(0,0))
     all_sprite.draw(screen)
-    draw_text(screen,f'score: {str(score)} /1000',18,WIDTH/2,10)
+    draw_text(screen,f'score: {str(score)} /500',18,WIDTH/2,10)
     draw_text(screen,f'jellyfish: {str(jnum10)} /10',18,WIDTH*27/32,10)
     time+=1/60
     draw_text(screen,f'time: {int(time)} /100',18,WIDTH*5/32,10)
